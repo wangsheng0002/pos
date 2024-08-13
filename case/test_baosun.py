@@ -17,7 +17,7 @@ def test_baosun(sysStore, goodsNo):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -31,7 +31,7 @@ def test_baosun(sysStore, goodsNo):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -40,7 +40,7 @@ def test_baosun(sysStore, goodsNo):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -59,7 +59,7 @@ def test_baosun(sysStore, goodsNo):
       "remarks": "自动化测试验证"
     }
     req_order = lossReportingOrder_saveOrUpdate(departmentid, token, data)
-    logs('''创建报损总单响应''', req_order)
+    logs( __name__+"---"+'''创建报损总单响应''', req_order)
     print('''创建报损总单''', req_order)
     assert req_order.get("msg") == "成功", req_order.get("msg")
     # 提取总单单号
@@ -75,11 +75,11 @@ def test_baosun(sysStore, goodsNo):
       "pageSize": 60
     }
     re = lossReportingOrder_page(departmentid, token, data)
-    logs('''查询报损总单响应''', req_order)
+    logs( __name__+"---"+'''查询报损总单响应''', req_order)
 
     for i in re.get("data").get("list"):
         if i.get("id")==LossReportingOrderId:
-            logs('''报损总单详情''', i)
+            logs( __name__+"---"+'''报损总单详情''', i)
             print('''报损总单详情''', i)
             break
 
@@ -99,7 +99,7 @@ def test_baosun(sysStore, goodsNo):
     }
     #查询报溢商品信息
     goods = goods_queryInvBatchNo(token, departmentid, data)
-    logs('''查询报损商品信息''', goods)
+    logs( __name__+"---"+'''查询报损商品信息''', goods)
     print('''查询报损商品信息''',goods)
     # 提取货品
     goods_lists = goods.get("data").get("list")
@@ -134,10 +134,10 @@ def test_baosun(sysStore, goodsNo):
         "rtClassText": goods_list.get("rtClassText"),
         "validDate": goods_list.get("validDate")
     }
-    logs('''添加报损商品入参''', data)
+    logs( __name__+"---"+'''添加报损商品入参''', data)
     print('''添加报损商品入参''', data)
     req_add = lossReportingOrder_detailSaveOrUpdate(departmentid, token, data)
-    logs('''添加报损商品响应''', req_add)
+    logs( __name__+"---"+'''添加报损商品响应''', req_add)
     print('''添加报损商品''', req_add)
     assert req_add.get("msg") == "成功", req_add.get("msg")
 
@@ -151,9 +151,9 @@ def test_baosun(sysStore, goodsNo):
         ],
         "approveStatus": 3
     }
-    logs('''送审报损单入参''', data)
+    logs( __name__+"---"+'''送审报损单入参''', data)
     re = lossReportingOrder_approve(departmentid, token, data)
-    logs('''送审报损单响应''', re)
+    logs( __name__+"---"+'''送审报损单响应''', re)
     print('''送审报损单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -164,9 +164,9 @@ def test_baosun(sysStore, goodsNo):
         ],
         "approveStatus": 1
     }
-    logs('''回退报损单入参''', data)
+    logs( __name__+"---"+'''回退报损单入参''', data)
     re = lossReportingOrder_approve(departmentid, token, data)
-    logs('''回退报损单响应''', re)
+    logs( __name__+"---"+'''回退报损单响应''', re)
     print('''回退送审报损单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -175,8 +175,8 @@ def test_baosun(sysStore, goodsNo):
     data = [
         LossReportingOrderId
     ]
-    logs('''删除报损单入参''', data)
+    logs( __name__+"---"+'''删除报损单入参''', data)
     re = lossReportingOrder_delete(departmentid, token, data)
-    logs('''删除报损单响应''', re)
+    logs( __name__+"---"+'''删除报损单响应''', re)
     print('''删除报损单''', re)
     assert re.get("msg") == "成功", re.get("msg")

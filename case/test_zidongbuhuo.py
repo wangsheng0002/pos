@@ -17,7 +17,7 @@ def test_zidongbuhuo(sysStore):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -31,7 +31,7 @@ def test_zidongbuhuo(sysStore):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -40,7 +40,7 @@ def test_zidongbuhuo(sysStore):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -63,7 +63,7 @@ def test_zidongbuhuo(sysStore):
         "dictParentId": 0
     }
     re = sysDictInfo_page(departmentid, token, data)
-    logs('''查询参林门店字典''', re)
+    logs( __name__+"---"+'''查询参林门店字典''', re)
     "提取参林门店字典id"
     dictId=re.get("data").get("list")[0].get("dictId")
     '''查询参林门店字典是否配置门店'''
@@ -73,9 +73,9 @@ def test_zidongbuhuo(sysStore):
         "dictCode": storeNo,
         "dictParentId": dictId
     }
-    logs('''查询参林门店字典是否配置门店入参''', data)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店入参''', data)
     re=sysDictInfo_page(departmentid,token,data)
-    logs('''查询参林门店字典是否配置门店响应''', re)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店响应''', re)
     print("参林门店配置",re)
     assert re.get("msg") == "成功" and re.get("data").get("total")== "1"
 
@@ -89,7 +89,7 @@ def test_zidongbuhuo(sysStore):
         "storeName": sysStore
     }
     re_store=store_list(departmentid,token,data)
-    logs('''查询门店类型''', re_store)
+    logs( __name__+"---"+'''查询门店类型''', re_store)
     print("门店信息",re_store)
 
 
@@ -103,7 +103,7 @@ def test_zidongbuhuo(sysStore):
     }
 
     re = sysDictInfo_page(departmentid, token, data)
-    logs('''查询GSC自动补货字典''', re)
+    logs( __name__+"---"+'''查询GSC自动补货字典''', re)
 
     "提取GSC自动补货门店字典id"
     dictId=re.get("data").get("list")[0].get("dictId")
@@ -115,9 +115,9 @@ def test_zidongbuhuo(sysStore):
         "dictCode": storeNo,
         "dictParentId": dictId
     }
-    logs('''查询参林门店字典是否配置门店入参''', data)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店入参''', data)
     re=sysDictInfo_page(departmentid,token,data)
-    logs('''查询参林门店字典是否配置门店响应''', re)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店响应''', re)
     print("GSC自动补货配置",re)
     #直营店需要配置GSC，加盟店不用配置
     if "加盟" not in re_store.get("data").get("list")[0].get("regionName"):
@@ -136,7 +136,7 @@ def test_zidongbuhuo(sysStore):
         "reqTypeList[0]": 7
     }
     re_order = requestOrder_page(departmentid, token, data)
-    logs('''查询门店当天自动补货单响应''', re_order)
+    logs( __name__+"---"+'''查询门店当天自动补货单响应''', re_order)
     print("门店自动补货单", re_order)
     assert re_order.get("msg") == "成功", re.get("msg")
 

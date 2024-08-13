@@ -12,10 +12,11 @@ for i in lists:
 
 @pytest.mark.parametrize("sysStore", list)
 def test_GSP(sysStore):
+    print("当前模块的名称是:", __name__)
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -29,7 +30,7 @@ def test_GSP(sysStore):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -38,7 +39,7 @@ def test_GSP(sysStore):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -62,7 +63,7 @@ def test_GSP(sysStore):
         "departmentId": departmentid
     }
     re = sysUserRole_page(departmentid, token, data)
-    logs('''查询门店人员''', re)
+    logs( __name__+"---"+'''查询门店人员''', re)
     print('''门店人员信息''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -74,7 +75,7 @@ def test_GSP(sysStore):
         if i.get("roleList") is not None:
             for j in i.get("roleList"):
                 if "验收员" in j.get("roleName")and i.get("slUserStatus")==1:
-                    logs('''门店人员验收员角色''', i)
+                    logs( __name__+"---"+'''门店人员验收员角色''', i)
                     userName=userName+1
                     print("门店验收员"+i.get("userName"))
                     break

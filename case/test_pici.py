@@ -17,7 +17,7 @@ def test_pici(sysStore):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -31,7 +31,7 @@ def test_pici(sysStore):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -40,7 +40,7 @@ def test_pici(sysStore):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -65,7 +65,7 @@ def test_pici(sysStore):
         "storeName": sysStore
     }
     re_store=store_list(departmentid,token,data)
-    logs('''查询门店类型''', re_store)
+    logs( __name__+"---"+'''查询门店类型''', re_store)
     storeName=re_store.get("data").get("list")[0].get("storeName")
     areaName = re_store.get("data").get("list")[0].get("areaName")
 
@@ -78,9 +78,9 @@ def test_pici(sysStore):
         "pageSize": 100
     }
     re_Region=getRegionBatchConfigPage(departmentid,token,data)
-    logs('''查询开启营运区''', re_Region)
+    logs( __name__+"---"+'''查询开启营运区''', re_Region)
     re_Store = getStoreBatchConfigPage(departmentid, token, data)
-    logs('''查询开启门店''', re_Store)
+    logs( __name__+"---"+'''查询开启门店''', re_Store)
     store=0
     for i in re_Region.get("data").get("list"):
         if areaName== i.get("regionName"):

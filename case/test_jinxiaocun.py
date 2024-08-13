@@ -15,7 +15,7 @@ def test_jinxiaocun(sysStore, goodsNo):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -29,7 +29,7 @@ def test_jinxiaocun(sysStore, goodsNo):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -38,7 +38,7 @@ def test_jinxiaocun(sysStore, goodsNo):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -61,7 +61,7 @@ def test_jinxiaocun(sysStore, goodsNo):
     "storeId": departmentid
     }
     re = goodsOutOfStockWarehousing_page(departmentid, token, data)
-    logs('''门店进销存信息''', re)
+    logs( __name__+"---"+'''门店进销存信息''', re)
     print('''门店进销存信息''', re)
     assert re.get("msg") == "成功", re.get("msg")
 

@@ -16,7 +16,7 @@ def test_baoyi(sysStore, goodsNo):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -30,7 +30,7 @@ def test_baoyi(sysStore, goodsNo):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -39,7 +39,7 @@ def test_baoyi(sysStore, goodsNo):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -61,7 +61,7 @@ def test_baoyi(sysStore, goodsNo):
         "reasonDictCode": "CHECK_OVERFLOW"
     }
     req_order = inventoryOverflow_add(departmentid, token, data)
-    logs('''创建报溢总单响应''', req_order)
+    logs( __name__+"---"+'''创建报溢总单响应''', req_order)
     print('''创建报溢总单''', req_order)
     assert req_order.get("msg") == "保存成功", req_order.get("msg")
     # 提取总单单号
@@ -75,12 +75,12 @@ def test_baoyi(sysStore, goodsNo):
       "pageSize": 60
     }
     re = inventoryOverflow_page(departmentid, token, data)
-    logs('''查询报损总单响应''', req_order)
+    logs( __name__+"---"+'''查询报溢总单响应''', req_order)
 
     for i in re.get("data").get("list"):
         if i.get("id")==overflowId:
-            logs('''报损总单详情''', i)
-            print('''报损总单详情''', i)
+            logs( __name__+"---"+'''报溢总单详情''', i)
+            print('''报溢总单详情''', i)
             break
 
 
@@ -101,7 +101,7 @@ def test_baoyi(sysStore, goodsNo):
     }
     #查询报溢商品信息
     goods = goods_queryInvBatchNo(token, departmentid, data)
-
+    logs(__name__ + "---" + '''查询报溢商品信息''', goods)
     print('''查询报溢商品信息''',goods)
     # 提取货品
     goods_lists = goods.get("data").get("list")
@@ -127,10 +127,10 @@ def test_baoyi(sysStore, goodsNo):
       "positionId": "0",
       "positionName": "普通货位"
     }
-    logs('''添加报溢商品入参''', data)
+    logs( __name__+"---"+'''添加报溢商品入参''', data)
     print('''添加报溢商品入参''', data)
     req_add = inventoryOverflow_detail(departmentid, token, data)
-    logs('''添加报溢商品响应''', req_add)
+    logs( __name__+"---"+'''添加报溢商品响应''', req_add)
     print('''添加报溢商品''', req_add)
     assert req_add.get("msg") == "成功", req_add.get("msg")
 
@@ -142,9 +142,9 @@ def test_baoyi(sysStore, goodsNo):
         "ids": overflowId,
         "checkState": 3
     }
-    logs('''送审报溢商品入参''', data)
+    logs( __name__+"---"+'''送审报溢商品入参''', data)
     re = inventoryOverflow_updateState(departmentid, token, data)
-    logs('''送审报溢商品响应''', re)
+    logs( __name__+"---"+'''送审报溢商品响应''', re)
     print('''送审报溢单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -153,9 +153,9 @@ def test_baoyi(sysStore, goodsNo):
         "ids": overflowId,
         "checkState": 1
     }
-    logs('''回退送审报溢商品入参''', data)
+    logs( __name__+"---"+'''回退送审报溢商品入参''', data)
     re = inventoryOverflow_updateState(departmentid, token, data)
-    logs('''回退送审报溢商品响应''', re)
+    logs( __name__+"---"+'''回退送审报溢商品响应''', re)
     print('''回退送审报溢单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -164,8 +164,8 @@ def test_baoyi(sysStore, goodsNo):
     data = {
         "ids": overflowId
     }
-    logs('''删除报溢商品入参''', data)
+    logs( __name__+"---"+'''删除报溢商品入参''', data)
     re = inventoryOverflow(departmentid, token, data)
-    logs('''删除报溢商品响应''', re)
+    logs( __name__+"---"+'''删除报溢商品响应''', re)
     print('''删除报溢单''', re)
     assert re.get("msg") == "成功", re.get("msg")

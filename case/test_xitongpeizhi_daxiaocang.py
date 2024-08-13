@@ -1,3 +1,5 @@
+import traceback
+
 import pytest
 
 from function.function_zidongbuhuo import *
@@ -17,7 +19,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''',userlogin)
-    logs("获取登录信息",userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
     #提取token
     token = userlogin.get("data").get("token")
     #提取username
@@ -31,7 +33,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid,token)
     print('''获取人员信息''',userinfo)
-    logs('''获取人员信息''', userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
     #提取phone
     phone = userinfo.get("data").get("phone")
 
@@ -40,7 +42,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
     '''获取门店信息'''
     Store =sysStore_search(sysStore,token)
     print('''获取门店信息''',Store)
-    logs('''获取门店信息''', Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
     #提取门店id
     departmentid=Store.get("data").get("list")[0].get("departmentId")
     #提取门店名称
@@ -63,7 +65,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
         "dictParentId": 0
     }
     re = sysDictInfo_page(departmentid, token, data)
-    logs('''查询参林门店字典''', re)
+    logs( __name__+"---"+'''查询参林门店字典''', re)
     "提取参林门店字典id"
     dictId=re.get("data").get("list")[0].get("dictId")
     '''查询参林门店字典是否配置门店'''
@@ -73,9 +75,9 @@ def test_xitongpeizhi_daxiaocang(sysStore):
         "dictCode": storeNo,
         "dictParentId": dictId
     }
-    logs('''查询参林门店字典是否配置门店入参''', data)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店入参''', data)
     re=sysDictInfo_page(departmentid,token,data)
-    logs('''查询参林门店字典是否配置门店响应''', re)
+    logs( __name__+"---"+'''查询参林门店字典是否配置门店响应''', re)
     print("参林门店配置",re)
     assert re.get("msg") == "成功" and re.get("data").get("total")== "1"
 
@@ -96,7 +98,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
     }
 
     re = sysDictInfo_page(departmentid, token, data)
-    logs('''查询大小仓门店字典''', re)
+    logs( __name__+"---"+'''查询大小仓门店字典''', re)
 
     "提取大小仓门店门店字典id"
     dictId=re.get("data").get("list")[0].get("dictId")
@@ -108,10 +110,11 @@ def test_xitongpeizhi_daxiaocang(sysStore):
         "dictCode": storeNo,
         "dictParentId": dictId
     }
-    logs('''查询参林门店字典是否配置大小仓门店''', data)
+    logs( __name__+"---"+'''查询参林门店字典是否配置大小仓门店''', data)
     re=sysDictInfo_page(departmentid,token,data)
-    logs('''查询参林门店字典是否配置大小仓门店响应''', re)
+    logs( __name__+"---"+'''查询参林门店字典是否配置大小仓门店响应''', re)
     print("GSC自动补货配置",re)
     assert re.get("msg") == "成功" and re.get("data").get("total") == "1"
+
 
 

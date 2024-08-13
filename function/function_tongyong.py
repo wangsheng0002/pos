@@ -7,6 +7,7 @@ import requests
 import config.config_1
 '''读csv文件并按返回列表'''
 def read_csv(filename):
+
     filenames = '../data/'+filename
     with open(filenames, "r") as csvfile:
         csvreader = csv.reader(csvfile)

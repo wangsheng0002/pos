@@ -2,7 +2,7 @@ import pytest
 
 from function.function_tuihuo import *
 from function.function_tongyong import *
-
+from function.function_LOG import *
 
 lists = read_csv("测试.csv")
 list = []
@@ -15,33 +15,43 @@ for i in lists:
 def test_tuihuo(sysStore, goodsNo):
     '''#获取登录信息'''
     userlogin = login()
-    print('''#获取登录信息''', userlogin)
-    # 提取token
+    print('''获取登录信息''',userlogin)
+    logs( __name__+"---"+"获取登录信息",userlogin)
+    #提取token
     token = userlogin.get("data").get("token")
-    # 提取username
+    #提取username
     username = userlogin.get("data").get("username")
-    # 提取userno
+    #提取userno
     userno = userlogin.get("data").get("empId")
-    # 提取userid
+    #提取userid
     userid = userlogin.get("data").get("id")
 
+
     '''获取人员信息'''
-    userinfo = sysUser_loginInfo(userid, token)
-    print('''获取人员信息''', userinfo)
-    # 提取phone
+    userinfo = sysUser_loginInfo(userid,token)
+    print('''获取人员信息''',userinfo)
+    logs( __name__+"---"+'''获取人员信息''', userinfo)
+    #提取phone
     phone = userinfo.get("data").get("phone")
 
+
+
     '''获取门店信息'''
-    Store = sysStore_search(sysStore, token)
-    print('''获取门店信息''', Store)
-    # 提取门店id
-    departmentid = Store.get("data").get("list")[0].get("departmentId")
-    # 提取门店名称
-    storeName = Store.get("data").get("list")[0].get("storeName")
-    # 提取门店名称
-    storeNo = Store.get("data").get("list")[0].get("longStoreNo")
-    # 提取门店地址
-    storeAddr = Store.get("data").get("list")[0].get("storeAddr")
+    Store =sysStore_search(sysStore,token)
+    print('''获取门店信息''',Store)
+    logs( __name__+"---"+'''获取门店信息''', Store)
+    #提取门店id
+    departmentid=Store.get("data").get("list")[0].get("departmentId")
+    #提取门店名称
+    storeName=Store.get("data").get("list")[0].get("storeName")
+    #提取门店名称
+    storeNo=Store.get("data").get("list")[0].get("longStoreNo")
+    #提取门店地址
+    storeAddr=Store.get("data").get("list")[0].get("storeAddr")
+
+
+
+
 
     '''创建退货总单'''
     # 创建退货单总单,
@@ -50,6 +60,7 @@ def test_tuihuo(sysStore, goodsNo):
         "reason": "5"
     }
     req_order = returnOrder_save(departmentid, token, data)
+    logs(__name__ + "---" + '''创建退货总单响应''', req_order)
     print('''创建退货总单''', req_order)
     assert req_order.get("msg") == "成功", req_order.get("msg")
     # 提取总单单号
@@ -69,6 +80,7 @@ def test_tuihuo(sysStore, goodsNo):
     }
     #查询退货商品信息
     goods = goods_queryInvBatchNo(token, departmentid, data)
+    logs(__name__ + "---" + '''查询退货商品信息''', goods)
     print(goods)
     # 提取货品
     goods_lists = goods.get("data").get("list")
@@ -111,8 +123,10 @@ def test_tuihuo(sysStore, goodsNo):
             goods_list
         ]
     }
+    logs(__name__ + "---" + '''检查退货商品入参''', data)
     req_add = returnOrderDetail_check(departmentid, token, data)
     print('''检查退货商品''', req_add)
+    logs(__name__ + "---" + '''检查退货商品响应''', req_add)
     assert req_add.get("checkResult") == True, req_add.get("msg")
 
 
@@ -133,7 +147,9 @@ def test_tuihuo(sysStore, goodsNo):
         }
     }
     print(data)
+    logs(__name__ + "---" + '''添加退货商品入参''', data)
     req_add = returnOrderDetail_modify(departmentid, token, data)
+    logs(__name__ + "---" + '''添加退货商品响应''', req_add)
     print('''添加退货单商品''', req_add)
     assert req_add.get("msg") == "成功", req_add.get("msg")
 
@@ -150,6 +166,7 @@ def test_tuihuo(sysStore, goodsNo):
       ]
     }
     re = returnOrder_sendApprove(departmentid, token, data)
+    logs(__name__ + "---" + '''送审请货单响应''', re)
     print('''送审请货单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -162,6 +179,7 @@ def test_tuihuo(sysStore, goodsNo):
     }
     re = returnOrder_sendApprove(departmentid, token, data)
     print('''回退送审退货单''', re)
+    logs(__name__ + "---" + '''回退送审退货单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
 
@@ -174,10 +192,11 @@ def test_tuihuo(sysStore, goodsNo):
         ]
     }
     re = returnOrder_del(departmentid, token, data)
+    logs(__name__ + "---" + '''删除退货单''', re)
     print('''删除请货单''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
 
 
-    '''退货调拨'''
+
 

@@ -21,7 +21,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     '''#获取登录信息'''
     userlogin = login()
     print('''获取登录信息''', userlogin)
-    logs("#获取登录信息", userlogin)
+    logs( __name__+"---"+"#获取登录信息", userlogin)
     # 提取token
     token = userlogin.get("data").get("token")
     # 提取username
@@ -33,14 +33,14 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
 
     '''获取人员信息'''
     userinfo = sysUser_loginInfo(userid, token)
-    logs("获取人员信息", userinfo)
+    logs( __name__+"---"+"获取人员信息", userinfo)
     print('''获取人员信息''', userinfo)
     # 提取phone
     phone = userinfo.get("data").get("phone")
 
     '''获取调出门店信息'''
     Store = sysStore_search(sysStore, token)
-    logs("获取调出门店信息", Store)
+    logs( __name__+"---"+"获取调出门店信息", Store)
     print('''获取调出门店信息''', Store)
     # 提取门店id
     departmentid = Store.get("data").get("list")[0].get("departmentId")
@@ -53,7 +53,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
 
     '''获取接收门店信息'''
     Store2 = sysStore_search(sysStore2, token)
-    logs("获取接收门店信息", Store2)
+    logs( __name__+"---"+"获取接收门店信息", Store2)
     print('''获取接收门店信息''', Store2)
     # 提取门店id
     departmentid2 = Store2.get("data").get("list")[0].get("departmentId")
@@ -72,7 +72,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data = {
     }
     req_order = allotOrder_save(departmentid,token,data)
-    logs("创建调拨总单响应", req_order)
+    logs( __name__+"---"+"创建调拨总单响应", req_order)
     print('''创建调拨总单''', req_order)
     assert req_order.get("msg") == "成功", req_order.get("msg")
     # 提取总单单号
@@ -90,10 +90,10 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "filterExpired": False,
         "queryThirtySaleQty": True
     }
-    logs("查询调拨商品入参", data)
+    logs( __name__+"---"+"查询调拨商品入参", data)
     #查询调拨商品信息
     goods = goods_queryInvBatchNo(token, departmentid, data)
-    logs("查询调拨商品响应", goods)
+    logs( __name__+"---"+"查询调拨商品响应", goods)
     print("查询调拨商品",goods)
     # 提取货品
     goods_lists = goods.get("data").get("list")
@@ -117,10 +117,10 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "producingBatchNumberId": producingBatchNumberId,
         "positionId": 0
     }
-    logs("添加批次入参", data)
+    logs( __name__+"---"+"添加批次入参", data)
     # 查询调拨商品信息
     queryInvBatchInfo = goods_queryInvBatchInfo(token, departmentid, data)
-    logs("添加批次响应", queryInvBatchInfo)
+    logs( __name__+"---"+"添加批次响应", queryInvBatchInfo)
     print("批次信息",queryInvBatchInfo)
     #更新批号信息
     goods_list.update(queryInvBatchInfo.get("data")[0])
@@ -148,9 +148,9 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "allotObjId": departmentid2
     }
 
-    logs("添加调拨单商品入参", data)
+    logs( __name__+"---"+"添加调拨单商品入参", data)
     req_add = allotOrderDetail_modify(departmentid, token, data)
-    logs("添加调拨单商品响应", req_add)
+    logs( __name__+"---"+"添加调拨单商品响应", req_add)
     print('''添加调拨单商品''', req_add)
     assert req_add.get("msg") == "成功", req_add.get("msg")
 
@@ -164,10 +164,10 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
       "goodsId": goodsId,
       "departmentId": departmentid
     }
-    logs("校验商品是否允许调拨入参", data)
+    logs( __name__+"---"+"校验商品是否允许调拨入参", data)
     print('调拨信息检查',data)
     re = allotOrderDetail_check(departmentid, token, data)
-    logs("校验商品是否允许调拨响应", re)
+    logs( __name__+"---"+"校验商品是否允许调拨响应", re)
     print('''校验商品是否允许调拨''', re)
     assert re.get("msg") == "成功", re.get("msg")
 
@@ -179,10 +179,10 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data = {
         "allotOrderId": allotOrderId
     }
-    logs("送审调拨单入参", data)
+    logs( __name__+"---"+"送审调拨单入参", data)
     re = allotOrder_submit(departmentid, token, data)
     print('''送审请调拨''', re)
-    logs("送审调拨单响应", re)
+    logs( __name__+"---"+"送审调拨单响应", re)
     assert re.get("msg") == "成功", re.get("msg")
 
     sleep(3)
@@ -190,11 +190,11 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     #查询收货单
     data = {"pageNum": 1, "pageSize": 20, }
     re = acceptOrder_page(departmentid2, token, data)
-    logs("接收门店查询收货单", re)
+    logs( __name__+"---"+"接收门店查询收货单", re)
     #找到调拨单号
     for i in re.get("data").get("list"):
         if i.get("tsfNo")==allotOrderNo:
-            logs("收货单", i)
+            logs( __name__+"---"+"收货单", i)
             print("收货单", i)
             distributeOrderId=i.get("distributeOrderId")
             break
@@ -204,9 +204,9 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data={
       "id": distributeOrderId
     }
-    logs("整单收货入参", data)
+    logs( __name__+"---"+"整单收货入参", data)
     re_acc=acceptOrder_accept(departmentid2, token, data)
-    logs("整单收货响应", re_acc)
+    logs( __name__+"---"+"整单收货响应", re_acc)
     print('''整单收货''', re_acc)
     assert re_acc.get("msg") == "成功", re_acc.get("msg")
 
@@ -219,7 +219,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data = {
     }
     req_order = allotOrder_save(departmentid2,token,data)
-    logs("调回调出门店-创建调拨总单响应", req_order)
+    logs( __name__+"---"+"调回调出门店-创建调拨总单响应", req_order)
     print('''调回调出门店-创建调拨总单''', req_order)
     # 提取总单单号
     allotOrderId = req_order.get("data").get("allotOrderId")
@@ -238,7 +238,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     }
     #查询调拨商品信息
     goods = goods_queryInvBatchNo(token, departmentid2, data)
-    logs("调回调出门店-查询调拨商品", goods)
+    logs( __name__+"---"+"调回调出门店-查询调拨商品", goods)
     print("调回调出门店-查询调拨商品",goods)
     # 提取货品
     goods_lists = goods.get("data").get("list")
@@ -261,10 +261,10 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "producingBatchNumberId": producingBatchNumberId2,
         "positionId": 0
     }
-    logs("调回调出门店-添加批次入参", data)
+    logs( __name__+"---"+"调回调出门店-添加批次入参", data)
     # 查询调拨商品信息
     queryInvBatchInfo = goods_queryInvBatchInfo(token, departmentid2, data)
-    logs("调回调出门店-添加批次响应", data)
+    logs( __name__+"---"+"调回调出门店-添加批次响应", data)
     #更新批号信息
     goods_list.update(queryInvBatchInfo.get("data")[0])
 
@@ -290,9 +290,9 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "allotType": 1,
         "allotObjId": departmentid
     }
-    logs("调回调出门店-添加调拨单商品入参", data)
+    logs( __name__+"---"+"调回调出门店-添加调拨单商品入参", data)
     req_add = allotOrderDetail_modify(departmentid2, token, data)
-    logs("调回调出门店-添加调拨单商品响应", data)
+    logs( __name__+"---"+"调回调出门店-添加调拨单商品响应", data)
     print('''调回调出门店-添加调拨单商品''', req_add)
 
 
@@ -305,9 +305,9 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
         "goodsId": goodsId,
         "departmentId": departmentid2
     }
-    logs("调回调出门店-校验商品是否允许调拨入参", data)
+    logs( __name__+"---"+"调回调出门店-校验商品是否允许调拨入参", data)
     re = allotOrderDetail_check(departmentid, token, data)
-    logs("调回调出门店-校验商品是否允许调拨响应", re)
+    logs( __name__+"---"+"调回调出门店-校验商品是否允许调拨响应", re)
     print('''调回调出门店-校验商品是否允许调拨''', re)
     assert re.get("msg")=="成功",re.get("msg")
 
@@ -322,9 +322,9 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data = {
         "allotOrderId": allotOrderId
     }
-    logs("调回调出门店-送审调拨单入参", data)
+    logs( __name__+"---"+"调回调出门店-送审调拨单入参", data)
     re = allotOrder_submit(departmentid2, token, data)
-    logs("调回调出门店-送审调拨单响应", re)
+    logs( __name__+"---"+"调回调出门店-送审调拨单响应", re)
     print('''调回调出门店-送审请调拨''', re)
 
     sleep(3)
@@ -333,11 +333,11 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     #查询收货单
     data = {"pageNum": 1, "pageSize": 20, }
     re = acceptOrder_page(departmentid, token, data)
-    logs("调回调出门店-询收货单", re)
+    logs( __name__+"---"+"调回调出门店-询收货单", re)
     #找到调拨单号
     for i in re.get("data").get("list"):
         if i.get("tsfNo")==allotOrderNo:
-            logs("收货单", i)
+            logs( __name__+"---"+"收货单", i)
             print("收货单", i)
             distributeOrderId=i.get("distributeOrderId")
             break
@@ -346,7 +346,7 @@ def test_diaobo(sysStore, goodsNo,sysStore2):
     data={
       "id": distributeOrderId
     }
-    logs("调回调出门店-整单收货入参", data)
+    logs( __name__+"---"+"调回调出门店-整单收货入参", data)
     re_acc=acceptOrder_accept(departmentid, token, data)
-    logs("调回调出门店-整单收货响应", re_acc)
+    logs( __name__+"---"+"调回调出门店-整单收货响应", re_acc)
     print('''调回调出门店-整单收货''', re_acc)
