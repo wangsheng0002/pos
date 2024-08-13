@@ -154,4 +154,5 @@ def test_qinghuo(sysStore,goodsNo):
     re=requestOrder_del(departmentid, token,data)
     print('''删除请货单''',re)
     logs('''删除请货单响应信息''', re)
+
     assert re.get("msg") == "成功", re.get("msg")
