@@ -113,7 +113,7 @@ def test_xitongpeizhi_daxiaocang(sysStore):
     logs( __name__+"---"+'''查询参林门店字典是否配置大小仓门店''', data)
     re=sysDictInfo_page(departmentid,token,data)
     logs( __name__+"---"+'''查询参林门店字典是否配置大小仓门店响应''', re)
-    print("GSC自动补货配置",re)
+    print("查询参林门店字典是否配置大小仓门店",re)
     assert re.get("msg") == "成功" and re.get("data").get("total") == "1"
 
 

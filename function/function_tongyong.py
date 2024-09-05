@@ -231,11 +231,11 @@ if __name__ == '__main__':
     print(lists)
     list = []
     for i in lists:
-
-        if i[0] == "test_baosun":
-            print(i)
-            print(i[1:3])
-            list.append(i[1:2])
+        if i != []:
+            if i[0] == "test_baosun":
+                print(i)
+                print(i[1:3])
+                list.append(i[1:2])
 
     print(list)
 
