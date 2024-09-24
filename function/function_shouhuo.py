@@ -13,6 +13,7 @@ def acceptOrder_page(departmentid,token,data):
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
+        "sl-role": "0",
         "sl-mode-department-id":departmentid
     }
 
@@ -86,5 +87,6 @@ def acceptOrder_acceptDetail(departmentid,token):
 
 if __name__ == '__main__':
     token = login().get("data").get("token")
-    b = acceptOrder_page("226831092864946234",token)
+    print(token)
+    b = acceptOrder_page("226831092864946234",token,{"pageNum": 1, "pageSize": 20})
     print(b)
