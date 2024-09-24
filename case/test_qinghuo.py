@@ -7,8 +7,11 @@ from function.function_LOG import *
 lists = read_csv("测试.csv")
 list = []
 for i in lists:
-    if i[0] == "test_GSP":
+    if i[0] == "test_qinghuo":
         list.append(i[1:3])
+
+
+print(list)
 
 
 
