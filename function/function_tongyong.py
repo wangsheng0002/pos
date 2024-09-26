@@ -5,6 +5,7 @@ import os
 
 import requests
 import config.config_1
+headers=config.config_1.headers_pro
 '''读csv文件并按返回列表'''
 def read_csv(filename):
 
@@ -94,12 +95,12 @@ def goods_querySimple(token,departmentid,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/goods/querySimple"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
+        "sl-mode":"store",
         "token": token,
-        "Sl-Mode":"store",
-        "sl-mode-department-id": departmentid
-    }
+        "sl-mode-department-id":departmentid
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -112,12 +113,12 @@ def goods_queryInvBatchNo(token,departmentid,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/goods/queryInvBatchNo"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
+        "sl-mode":"store",
         "token": token,
-        "Sl-Mode":"store",
-        "sl-mode-department-id": departmentid
-    }
+        "sl-mode-department-id":departmentid
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -131,12 +132,12 @@ def goods_queryInvBatchInfo(token,departmentid,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/goods/queryInvBatchInfo"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
+        "sl-mode":"store",
         "token": token,
-        "Sl-Mode":"store",
-        "sl-mode-department-id": departmentid
-    }
+        "sl-mode-department-id":departmentid
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -151,12 +152,12 @@ def sysDictInfo_page(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/search/sysDictInfo/page"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -172,12 +173,12 @@ def store_get(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/store/get"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -189,12 +190,12 @@ def store_list(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/store/list"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果

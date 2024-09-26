@@ -3,19 +3,20 @@ import config.config_1
 
 
 from function.function_tongyong import login
-
+headers=config.config_1.headers_pro
 #查询收货列表总单
 def acceptOrder_page(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/acceptOrder/page"
 
-    headers = {
+
+    headers.update({
         "Content-Type": "application/json",
-        "sl-mode":"store",
+        "sl-mode": "store",
         "token": token,
         "sl-role": "0",
-        "sl-mode-department-id":departmentid
-    }
+        "sl-mode-department-id": departmentid
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果
@@ -25,12 +26,12 @@ def acceptOrderDetail_page(departmentid,token):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/acceptOrderDetail/page"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
     data= {
       "pageNum": 1,
       "pageSize": 60,
@@ -50,12 +51,12 @@ def acceptOrder_accept(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/acceptOrder/accept"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -66,12 +67,12 @@ def acceptOrder_acceptDetail(departmentid,token):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/acceptOrder/acceptDetail"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
     data={
       "id": "367150253035724800"
     }

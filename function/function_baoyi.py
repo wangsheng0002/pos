@@ -3,18 +3,18 @@ import config.config_1
 
 
 from function.function_tongyong import login
-
+headers=config.config_1.headers_pro
 #新增报溢总单
 def inventoryOverflow_add(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/inventoryOverflow/add"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -26,12 +26,12 @@ def inventoryOverflow_detail(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/inventoryOverflow/detail"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -42,12 +42,12 @@ def inventoryOverflow_updateState(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/inventoryOverflow/updateState"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -59,12 +59,12 @@ def inventoryOverflow(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/inventoryOverflow"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.delete(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -76,12 +76,12 @@ def inventoryOverflow_page(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/inventoryOverflow/page"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.get(url=url,params=data,headers=headers).json()
     #返回post请求结果

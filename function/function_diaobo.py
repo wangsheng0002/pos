@@ -3,18 +3,18 @@ import config.config_1
 
 
 from function.function_tongyong import login
-
+headers=config.config_1.headers_pro
 #新增调拨总单
 def allotOrder_save(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/allotOrder/save"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -26,12 +26,12 @@ def allotOrderDetail_modify(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/allotOrderDetail/modify"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -42,12 +42,12 @@ def allotOrder_submit(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/allotOrder/submit"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -60,12 +60,12 @@ def allotOrderDetail_check(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/allotOrderDetail/check"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -78,13 +78,12 @@ def allotOrder_disable(departmentid,token):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/allotOrder/disable"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
-
         "sl-mode-department-id":departmentid
-    }
+    })
     data={
   "allotOrderId": "367429180268085248"
 }

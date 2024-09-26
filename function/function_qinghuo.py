@@ -3,18 +3,18 @@ import config.config_1
 
 
 from function.function_tongyong import login
-
+headers=config.config_1.headers_pro
 #新增请货总单
 def requestOrder_save(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/requestOrder/save"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -26,12 +26,12 @@ def requestOrderDetail_modify(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/requestOrderDetail/modify"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -42,12 +42,12 @@ def requestOrder_submit(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/requestOrder/submit"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -59,12 +59,12 @@ def requestOrder_del(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/requestOrder/del"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
@@ -75,12 +75,12 @@ def requestOrder_del(departmentid,token,data):
     #引用配置的域名
     url = config.config_1.url_pro+"/api/sl-pos-management-provider/v1/requestOrder/del"
 
-    headers = {
+    headers.update({
         "Content-Type": "application/json",
         "sl-mode":"store",
         "token": token,
         "sl-mode-department-id":departmentid
-    }
+    })
 
     re=requests.post(url=url,json=data,headers=headers).json()
     #返回post请求结果
