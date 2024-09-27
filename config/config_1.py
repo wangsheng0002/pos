@@ -25,12 +25,17 @@ print(lists)
 for i in lists:
     if i[0] == "url":
         url=i[1]
+        if "test" in url:
+            sl_role=0
+        else:
+            sl_role = 2
     if i[0] == "phone":
         phone=i[1]
     if i[0] == "password":
         password=i[1]
     if i[0] == "env":
         env=i[1]
+
 #测试环境
 url_pro = url
 
@@ -38,7 +43,8 @@ url_pro = url
 headers_pro = {
     "Content-Type": "application/json",
     "token":"",
-    "env":env
+    "env":env,
+    "sl-role": "0"
 
 }
 

@@ -14,7 +14,6 @@ def acceptOrder_page(departmentid,token,data):
         "Content-Type": "application/json",
         "sl-mode": "store",
         "token": token,
-        "sl-role": "0",
         "sl-mode-department-id": departmentid
     })
 
