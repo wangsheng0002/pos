@@ -26,9 +26,9 @@ for i in lists:
     if i[0] == "url":
         url=i[1]
         if "test" in url:
-            sl_role=0
+            sl_role="0"
         else:
-            sl_role = 2
+            sl_role = "2"
     if i[0] == "phone":
         phone=i[1]
     if i[0] == "password":
